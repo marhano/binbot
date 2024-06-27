@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "binbot", "binbot\binbot.csproj", "{B5E8C2CF-F724-4F72-9766-46A59C7A091B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5E8C2CF-F724-4F72-9766-46A59C7A091B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E8C2CF-F724-4F72-9766-46A59C7A091B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E8C2CF-F724-4F72-9766-46A59C7A091B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5E8C2CF-F724-4F72-9766-46A59C7A091B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D14F52D-9A00-46FC-A4E5-2F6F3DE32830}
+	EndGlobalSection
+EndGlobal

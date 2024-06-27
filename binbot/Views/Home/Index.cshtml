@@ -1,0 +1,261 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+@section styles{
+    <link href="~/Content/prism.css" rel="stylesheet" />
+}
+<main>
+    <div class="bb__container">
+        <header>
+            <ul>
+                <li class="active">Checkout form</li>
+                <li>Field condition sets</li>
+                <li>Workflow</li>
+                <li>Field visibility</li>
+            </ul>
+        </header>
+        <div class="bb__group main-content mx-3 gap-3 mb-3 justify-content-center">
+            <div class="bb__group flex-row gap-2">
+                <button data-bs-toggle="modal" data-bs-target="#fieldModal" data-icon-slot="start" class="bb__btn"><i class="fa-regular fa-square"></i>Textfield</button>
+                <button data-bs-toggle="modal" data-bs-target="#fieldModal" data-icon-slot="start" class="bb__btn"><i class="fa-regular fa-square-check"></i>Checkbox</button>
+                <button data-bs-toggle="modal" data-bs-target="#fieldModal" data-icon-slot="start" class="bb__btn"><i class="fa-solid fa-tag"></i>Label</button>
+                <button data-bs-toggle="modal" data-bs-target="#fieldModal" data-icon-slot="start" class="bb__btn"><i class="fa-solid fa-object-ungroup"></i>Select</button>
+                <button data-bs-toggle="modal" data-bs-target="#fieldModal" data-icon-slot="start" class="bb__btn"><i class="fa-solid fa-check-double"></i>Multiple Checkbox</button>
+                <button data-bs-toggle="modal" data-bs-target="#fieldModal" data-icon-slot="start" class="bb__btn"><i class="fa-solid fa-object-group"></i>Section</button>
+                <div class="bb__input ms-auto">
+                    <input id="requestInput" type="text" value="" placeholder="/api-request" />
+                </div>
+                <button data-bs-toggle="modal" data-bs-target="#loginModal" data-icon-slot="start" class="bb__btn" data-fill="outline" data-color="primary"><i class="fa-solid fa-play"></i>Run Script</button>
+                <button id="resetBtn" data-icon-slot="start" class="bb__btn" data-color="primary"><i class="fa-solid fa-rotate"></i>Reset</button>
+            </div>
+        </div>
+        <div class="bb__group flex-row overflow-auto vh-100 bottom-container">
+            <div class="bb__group code-block">
+            </div>
+            <div class="bb__group tree-block">
+                <ul class="bb__group field-card-container">
+                </ul>
+                <div class="bb__group flex-row align-self-end mt-auto gap-2">
+                    <button class="bb__btn" data-color="primary" data-fill="outline"><i class="fa-solid fa-download"></i></button>
+                    <button id="importBtn" data-icon-slot="start" class="bb__btn" data-color="primary"><i class="fa-solid fa-file-import"></i>Import JSON</button>
+                    <input type="file" id="fileInput" style="display:none;" accept=".json">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="login-form">
+                        <form id="loginForm">
+                            <div class="bb__group gap-3 mx-4">
+                                <h1>&#64;binbot</h1>
+                                <div class="bb__input-group">
+                                    <label>Username</label>
+                                    <div class="bb__input">
+                                        <input type="text" name="username" value="" />
+                                    </div>
+                                </div>
+                                <div class="bb__input-group">
+                                    <label>Password</label>
+                                    <div class="bb__input">
+                                        <input type="password" name="password" value="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="loginBinbotBtn" data-color="primary" type="button" class="bb__btn">Login</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="fieldModal" tabindex="-1" aria-labelledby="fieldModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fieldModalLabel">Create field</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="properties-tab" data-bs-toggle="tab" data-bs-target="#properties" type="button" role="tab" aria-controls="home" aria-selected="true">Properties</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="style-tab" data-bs-toggle="tab" data-bs-target="#style" type="button" role="tab" aria-controls="profile" aria-selected="false">Style</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="constraints-tab" data-bs-toggle="tab" data-bs-target="#constraints" type="button" role="tab" aria-controls="contact" aria-selected="false">Constraints</button>
+                        </li>
+                    </ul>
+                    <form id="createFieldForm">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="properties" role="tabpanel" aria-labelledby="properties-tab">
+                                <div class="bb__group gap-3 mt-2">
+                                    <div id="nameInput" class="bb__input-group field-input">
+                                        <label>Name</label>
+                                        <div class="bb__input">
+                                            <input type="text" name="name" value="" />
+                                        </div>
+                                    </div>
+                                    <div id="altNameInput" class="bb__input-group field-input">
+                                        <label>Alternative Name</label>
+                                        <div class="bb__input">
+                                            <input type="text" name="alt_name" value="" />
+                                        </div>
+                                    </div>
+                                    <div id="optionalHintInput" class="bb__input-group field-input">
+                                        <label>Optional Hint</label>
+                                        <div class="bb__input">
+                                            <input type="text" name="optional_hint" value="" />
+                                        </div>
+                                    </div>
+                                    <div id="stringFormatInput" class="bb__input-group field-input">
+                                        <label>String format</label>
+                                        <div class="bb__input">
+                                            <input type="text" name="string_format" value="" />
+                                        </div>
+                                    </div>
+                                    <div id="valuesInput" class="bb__input-group field-input">
+                                        <label>Values</label>
+                                        <div class="bb__textarea">
+                                            <textarea name="values"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="bb__input-group">
+                                        <label>Default value</label>
+                                        <div id="defaultValueInputInput" class="bb__input field-input">
+                                            <input type="text" name="default_value_input" value="" />
+                                        </div>
+                                        <label id="defaultValueCheckboxInput" class="bb__checkbox ms-4 field-input">
+                                            <input type="checkbox" name="show_please_select_no_default" />
+                                            No default value
+                                        </label>
+                                    </div>
+                                    <div class="bb__input-group gap-2 ms-4">
+                                        <label id="requiredInput" class="bb__checkbox field-input">
+                                            <input type="checkbox" name="required" />
+                                            Required
+                                        </label>
+                                        <input type="hidden" name="required" value="off" />
+                                        <label id="disabledInput" class="bb__checkbox field-input">
+                                            <input type="checkbox" name="disabled" />
+                                            Disabled
+                                        </label>
+                                        <input type="hidden" name="disabled" value="off" />
+                                        <label id="reloadFormInput" class="bb__checkbox field-input">
+                                            <input type="checkbox" name="reload" />
+                                            Reload form on changing
+                                        </label>
+                                        <input type="hidden" name="reload" value="off" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="style" role="tabpanel" aria-labelledby="style-tab">
+                                <div class="bb__group gap-3 mt-2">
+                                    <div id="cssClassLabelInput" class="bb__input-group field-input">
+                                        <label>CSS class for field label</label>
+                                        <div class="bb__input">
+                                            <input type="text" name="field_label_css" value="" />
+                                        </div>
+                                    </div>
+                                    <div id="cssClassValueInput" class="bb__input-group field-input">
+                                        <label>CSS class for field value</label>
+                                        <div class="bb__input">
+                                            <input type="text" name="field_value_css" value="" />
+                                        </div>
+                                    </div>
+                                    <div id="labelSizeInput" class="bb__input-group field-input">
+                                        <label>Label size (in cells)</label>
+                                        <div class="bb__input">
+                                            <input type="number" name="label_size" value="1" />
+                                        </div>
+                                    </div>
+                                    <div id="inputSizeInput" class="bb__input-group field-input">
+                                        <label>Input size (in cells)</label>
+                                        <div class="bb__input">
+                                            <input type="number" name="input_size" value="1" />
+                                        </div>
+                                    </div>
+                                    <div class="bb__input-group gap-2 ms-4">
+                                        <label id="separateCellsInput" class="bb__checkbox field-input">
+                                            <input type="checkbox" name="separate_cells" />
+                                            Separate cells
+                                        </label>
+                                        <input type="hidden" name="separate_cells" value="off" />
+                                        <label id="labelAboveInputInput" class="bb__checkbox field-input">
+                                            <input type="checkbox" name="label_above_input_field" />
+                                            Label above input field
+                                        </label>
+                                        <input type="hidden" name="label_above_input_field" value="off" />
+                                        <label id="groupWithNextInput" class="bb__checkbox field-input">
+                                            <input type="checkbox" name="group_with_next" />
+                                            Group with next
+                                        </label>
+                                        <input type="hidden" name="group_with_next" value="off" />
+                                        <label id="horizontalLayoutInput" class="bb__checkbox field-input">
+                                            <input type="checkbox" name="horizontal_layout" />
+                                            Horizontal Layout
+                                        </label>
+                                        <input type="hidden" name="horizontal_layout" value="off" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="constraints" role="tabpanel" aria-labelledby="constraints-tab">
+                                <div class="bb__group gap-2 mt-2">
+                                    <div class="bb__input-group">
+                                        <label>Constraint: reg.exp.</label>
+                                        <div class="bb__input">
+                                            <input type="text" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="bb__input-group">
+                                        <label>Constraint: value >=</label>
+                                        <div class="bb__input">
+                                            <input type="text" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="bb__input-group">
+                                        <label>Constraint: value <=</label>
+                                        <div class="bb__input">
+                                            <input type="text" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="bb__input-group">
+                                        <label>Constraint: size >=</label>
+                                        <div class="bb__input">
+                                            <input type="text" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="bb__input-group">
+                                        <label>Constraint: size <=</label>
+                                        <div class="bb__input">
+                                            <input type="text" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="addFieldBtn" data-color="primary" type="button" class="bb__btn">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section scripts{
+    <script src="~/Scripts/prism.js"></script>
+}
