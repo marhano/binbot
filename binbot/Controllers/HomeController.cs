@@ -51,7 +51,7 @@ namespace binbot.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> RunScript(string id, string request, string count, string jsonData)
+        public async Task<JsonResult> RunScript(string request, string requestData, string jsonData)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -59,14 +59,13 @@ namespace binbot.Controllers
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var loginData = new
+                var data = new
                 {
-                    id = id,
+                    request_data = requestData,
                     json_data = jsonData,
-                    count = count
                 };
 
-                string json = JsonConvert.SerializeObject(loginData);
+                string json = JsonConvert.SerializeObject(data);
                 HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await client.PostAsync(request, content);
